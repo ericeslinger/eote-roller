@@ -1,0 +1,101 @@
+.forceblock {
+  display: block;
+}
+.flex {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: center;
+}
+.flex-first {
+  order: -1000;
+}
+.flex-last {
+  order: 1000;
+}
+.column {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.row {
+  flex-direction: row;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.cross-stretch {
+  align-items: stretch;
+}
+.cross-start {
+  align-items: flex-start;
+}
+.nostretch {
+  flex-grow: 0;
+}
+.stretch {
+  flex-grow: 1;
+}
+.shrinkable {
+  flex-shrink: 1;
+}
+.five {
+  flex: 0 0 5%;
+}
+.ten {
+  flex: 0 0 10%;
+}
+.twenty {
+  flex: 0 0 20%;
+}
+.thirty {
+  flex: 0 0 30%;
+}
+.forty {
+  flex: 0 0 40%;
+}
+.fifty {
+  flex: 0 0 50%;
+}
+.sixty {
+  flex: 0 0 60%;
+}
+.seventy {
+  flex: 0 0 70%;
+}
+.eighty {
+  flex: 0 0 80%;
+}
+.ninety {
+  flex: 0 0 90%;
+}
+
+.ninety-five {
+  flex: 0 0 95%;
+}
+
+.hundred {
+  flex: 0 0 100%;
+}
+.magic {
+  flex-basis: 0.001px;
+}
+.space-between {
+  justify-content: space-between;
+}
+.space-around {
+  justify-content: space-around;
+}
+.cross-center {
+  align-items: center;
+}
+.end {
+  justify-content: flex-end;
+}
+.center {
+  justify-content: center;
+}
+.self-center {
+  align-self: center;
+}
