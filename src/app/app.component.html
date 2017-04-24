@@ -4,43 +4,6 @@
   <span></span>
 </md-toolbar>
 <md-card>
-  <!-- <md-list> -->
-    <!-- <md-list-item> -->
-      <plus-minus>what</plus-minus>
-    <!-- </md-list-item> -->
-    <!-- <md-list-item>
-      <div md-line>{{rollStream | async}}</div>
-      <div md-line>Boost</div>
-      <div md-line>count</div>
-      <div md-line>
-        <button md-icon-button (click)=""><md-icon>add circle outline</md-icon></button>
-        <button md-icon-button><md-icon>remove circle outline</md-icon></button>
-        <button md-button (click)="onClick()">ROLL</button>
-      </div>
-    </md-list-item> -->
-    <!-- <md-list-item>
-      <div md-line>Ability</div>
-      <div md-line>count</div>
-    </md-list-item>
-    <md-list-item>
-      <div md-line>Proficiency</div>
-      <div md-line>count</div>
-    </md-list-item>
-    <md-list-item>
-      <div md-line>Setback</div>
-      <div md-line>count</div>
-    </md-list-item>
-    <md-list-item>
-      <div md-line>Difficulty</div>
-      <div md-line>count</div>
-    </md-list-item>
-    <md-list-item>
-      <div md-line>Challenge</div>
-      <div md-line>count</div>
-    </md-list-item>
-    <md-list-item>
-      <div md-line>Force</div>
-      <div md-line>count</div>
-    </md-list-item> -->
-  <!-- </md-list> -->
+  <plus-minus #pm [minValue]="1" [maxValue]="10">what</plus-minus>
+  <div>FOO: {{pm.count$ | async}}</div>
 </md-card>
