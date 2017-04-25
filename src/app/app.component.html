@@ -4,6 +4,6 @@
   <span></span>
 </md-toolbar>
 <md-card>
-  <plus-minus #pm [minValue]="1" [maxValue]="10">what</plus-minus>
-  <div>FOO: {{pm.count$ | async}}</div>
+  <plus-minus #pm [minValue]="1" [maxValue]="10"></plus-minus>
+  <button md-button #rollButton>ROLL {{pm.count$ | async}} DICE</button>
 </md-card>
