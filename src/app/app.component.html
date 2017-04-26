@@ -1,51 +1,79 @@
 <div left>
-  <die-panel [label]="'ability'" [sides]="ability" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'proficiency'" [sides]="proficiency" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'difficulty'" [sides]="difficulty" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'boost'" [sides]="boost" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'challenge'" [sides]="challenge" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'force'" [sides]="force" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
-  <die-panel [label]="'setback'" [sides]="setback" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'ability'" [sides]="ability" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'proficiency'" [sides]="proficiency" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'difficulty'" [sides]="difficulty" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'boost'" [sides]="boost" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'challenge'" [sides]="challenge" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'force'" [sides]="force" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'setback'" [sides]="setback" [control$]="control$" (rolled)="pipsRolled($event)"></die-panel>
+  <div (click)="doReset($event)">RESET</div>
 </div>
 <button (click)="doRoll($event)" class="mdl-button mdl-button--fab mdl-button--colored">
   <svg><use xlink:href="#roll"></use></svg>
 </button>
 <div right>
-    <div>
-      <h5>Results</h5>
-      <ul class="mdl-list">
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-            Success: {{ (result$ | async).success + (result$ | async).triumph - (result$ | async).failure - (result$ | async).despair }}
-          </span>
-        </li>
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-            Advantage: {{(result$ | async).advantage - (result$ | async).threat}}
-          </span>
-        </li>
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-            Triumph: {{(result$ | async).triumph}}
-          </span>
-        </li>
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-            Despair: {{(result$ | async).despair}}
-          </span>
-        </li>
-      </ul>
+  <div class="results-row">
+    <div class="mdl-chip mdl-chip--contact">
+      <span
+        class="mdl-chip__contact"
+        [ngClass]="{ 'mdl-color--green mdl-color-text--white': (success$ | async) > 0, 'mdl-color--pink mdl-color-text--white': (success$ | async) < 0 }"
+      >
+        S
+      </span>
+      <span class="mdl-chip__text">
+        {{ success$ | async }}
+      </span>
     </div>
+    <div class="mdl-chip mdl-chip--contact">
+      <span
+        class="mdl-chip__contact"
+        [ngClass]="{ 'mdl-color--green mdl-color-text--white': (advantage$ | async) > 0, 'mdl-color--pink mdl-color-text--white': (advantage$ | async) < 0 }"
+      >
+        A
+      </span>
+      <span class="mdl-chip__text">
+        {{ advantage$ | async}}
+      </span>
+    </div>
+    <div class="mdl-chip mdl-chip--contact">
+      <span
+        class="mdl-chip__contact"
+        [ngClass]="{ 'mdl-color--green mdl-color-text--white': (triumph$ | async) > 0 }"
+      >
+        T
+      </span>
+      <span class="mdl-chip__text">
+        {{ triumph$ | async }}
+      </span>
+    </div>
+    <div class="mdl-chip mdl-chip--contact">
+      <span
+        class="mdl-chip__contact"
+        [ngClass]="{ 'mdl-color--pink mdl-color-text--white': (despair$ | async) > 0 }"
+      >
+        D
+      </span>
+      <span class="mdl-chip__text">
+        {{ despair$ | async }}
+      </span>
+    </div>
+  </div>
   <div class="face-row">
-    <div class="mdl-card mdl-shadow--4dp" *ngFor="let value of face$ | async">
-      <!-- <div *ngIf="value.dieType === 'difficulty'; then icon else text"></div> -->
-      <!-- <ng-template #icon><eote-icon [svgIcon]="value.dieType + ':' + value.face.join(' ')"></eote-icon></ng-template> -->
-      <!-- <ng-template #text> -->
+    <div class="mdl-card mdl-shadow--2dp" *ngFor="let value of face$ | async">
+      <div *ngIf="value.dieType === 'difficulty'; then icon else text"></div>
+      <ng-template #icon>
+        <div class="mdl-card__title">{{value.dieType}}</div>
+        <svg>
+          <use attr.xlink:href="{{'#' + value.dieType + '-' + value.face.join('-')}}"></use>
+        </svg>
+        <!-- <eote-icon [svgIcon]="value.dieType + ':' + value.face.join(' ')"></eote-icon> -->
+      </ng-template>
+      <ng-template #text>
         <div class="mdl-card__title">{{value.dieType}}</div>
         <div class="mdl-card__supporting-text">
           {{value.face.join(', ')}}
         </div>
-      <!-- </ng-template> -->
+      </ng-template>
     </div>
   </div>
 </div>

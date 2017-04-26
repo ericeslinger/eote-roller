@@ -1,16 +1,11 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 
-import { ability } from './fancy-dice/abilityDie';
-import { boost } from './fancy-dice/boostDie';
-import { challenge } from './fancy-dice/challengeDie';
-import { difficulty } from './fancy-dice/difficultyDie';
-import { force } from './fancy-dice/forceDie';
-import { proficiency } from './fancy-dice/proficiencyDie';
-import { setback } from './fancy-dice/setbackDie';
-import { DiePanelComponent } from './fancy-dice/die-panel.component';
+import { ability, boost, challenge, difficulty, force, proficiency, setback } from './die-panel/diceData';
 
-import { DieResult } from './fancy-dice/die';
+import { DiePanelComponent } from './die-panel/die-panel.component';
+
+import { DieResult } from './die-panel/die';
 
 interface PipCount {
   success: number;
@@ -50,22 +45,26 @@ export class AppComponent {
   force = force;
   proficiency = proficiency;
   setback = setback;
+  // @ViewChildren(DiePanelComponent) dicePanels: QueryList<DiePanelComponent>;
+  dice$: Observable<DieResult[]>;
 
-  private _roll = new Subject<MouseEvent>();
+  private _control = new Subject<{type: string, e: MouseEvent}>();
   private _faceStream = new Subject<DieResult[]>();
   private _result = new BehaviorSubject<PipCount>(Object.assign({}, initialValues));
   private unsubscribes = [];
 
-  rollClick$ = this._roll.asObservable();
+  control$ = this._control.asObservable();
 
-  face$ = this.rollClick$
+  face$ = this.control$
+  .filter(v => v.type === 'roll')
   .mapTo(true)
   .startWith(true)
   .switchMap(() => {
     return this._faceStream.asObservable()
     .mergeMap(v => Observable.from(v as DieResult[]))
     .scan((current, face) => current.concat(face), []);
-  });
+  })
+  .share();
 
   result$ = this.face$
   .map((v) => {
@@ -77,11 +76,30 @@ export class AppComponent {
   })
   .startWith(Object.assign({}, initialValues));
 
+  success$ = this.result$
+  .map(v => v.success + v.triumph - v.failure - v.despair);
+
+  advantage$ = this.result$
+  .map(v => v.advantage - v.threat);
+
+  triumph$ = this.result$
+  .map(v => v.triumph);
+
+  despair$ = this.result$
+  .map(v => v.despair);
+
   pipsRolled(val: DieResult[]) {
     this._faceStream.next(val);
   }
 
   doRoll(evt: MouseEvent) {
-    this._roll.next(evt);
+    this._control.next({ type: 'roll', e: evt });
   }
+  doReset(evt: MouseEvent) {
+    this._control.next({ type: 'reset', e: evt });
+  }
+
+  // ngAfterViewInit() {
+  //   this.dice$ = Observable.merge( ...this.dicePanels.toArray().map(dp => dp.value$) );
+  // }
 }

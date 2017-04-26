@@ -5,16 +5,10 @@
   justify-content: flex-start;
   align-content: flex-start;
   align-items: stretch;
+}
 
-  button {
-    float: right;
-    svg {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-  }
-
+die-panel {
+  padding-bottom: 20px;
 }
 
 [left] {
@@ -42,10 +36,27 @@
   align-items: flex-start;
 }
 
+.results-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 0 1 auto;
+  div {
+    margin: 5px;
+  }
+}
+
 .mdl-button--fab {
-  position: absolute;
+  position: fixed;
   right: 25px;
   bottom: 25px;
+  z-index: 2;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
 }
 
 .mdl-card {
