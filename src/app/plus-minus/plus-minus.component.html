@@ -1,5 +1,7 @@
-<div class="flex row">
-  <button md-icon-button #minus class="flex nostretch"><md-icon>remove circle outline</md-icon></button>
-  <div class="flex nostretch">{{count$ | async}}</div>
-  <button md-icon-button #plus class="flex nostretch"><md-icon>add circle outline</md-icon></button>
-</div>
+<button (click)="controlClick(-1)">
+  <svg><use xlink:href="#minus-outline"></use></svg>
+</button>
+<div>{{value$ | async}}</div>
+<button (click)="controlClick(+1)">
+  <svg><use xlink:href="#plus-outline"></use></svg>
+</button>

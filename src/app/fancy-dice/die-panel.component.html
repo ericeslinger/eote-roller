@@ -1,7 +1,15 @@
-<div class="flex row">
-  <plus-minus #pm [minValue]="0" [maxValue]="sides.length"></plus-minus>
-  <button md-button #rollButton>ROLL {{pm.count$ | async}} DICE</button>
-  <div class="flex column" *ngFor="let value of value$ | async">
-    <div *ngFor="let pip of value">{{pip}}</div>
-  </div>
+<div>
+  {{label}}
 </div>
+<plus-minus (count)="onCount($event)" [minValue]="0" [maxValue]="10"></plus-minus>
+<!-- <div class="results">
+  <div class="face" *ngFor="let value of value$ | async">
+    <div *ngIf="label === 'difficulty'; then icon else text"></div>
+    <ng-template #icon><eote-icon [svgIcon]="value.dieType + ':' + value.face.join(' ')"></eote-icon></ng-template>
+    <ng-template #text>
+      <div *ngFor="let pip of value.face">
+        {{pip}}
+      </div>
+    </ng-template>
+  </div>
+</div> -->

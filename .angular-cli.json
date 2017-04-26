@@ -17,7 +17,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "",
       "styles": [
         "styles.scss"
       ],
@@ -53,19 +53,21 @@
   "defaults": {
     "styleExt": "scss",
     "component": {
-      "spec": "false"
+      "spec": false,
+      "inlineStyle": true,
+      "inlineTemplate": true
     },
     "service": {
-      "spec": "false"
+      "spec": false
     },
     "module": {
-      "spec": "false"
+      "spec": false
     },
     "pipe": {
-      "spec": "false"
+      "spec": false
     },
     "directive": {
-      "spec": "false"
+      "spec": false
     }
   }
 }

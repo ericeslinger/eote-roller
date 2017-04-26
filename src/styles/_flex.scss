@@ -99,3 +99,14 @@
 .self-center {
   align-self: center;
 }
+
+%panelbase {
+  //background-color: $white;
+  //color: $primary-text;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: stretch;
+}
