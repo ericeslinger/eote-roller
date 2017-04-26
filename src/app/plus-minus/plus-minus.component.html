@@ -1,7 +1,7 @@
-<button (click)="controlClick(-1)">
+<button class="mdl-button mdl-button--raised" (click)="controlClick(-1)">
   <svg><use xlink:href="#minus-outline"></use></svg>
 </button>
 <div>{{value$ | async}}</div>
-<button (click)="controlClick(+1)">
+<button class="mdl-button mdl-button--raised" (click)="controlClick(+1)">
   <svg><use xlink:href="#plus-outline"></use></svg>
 </button>

@@ -1,1 +1,51 @@
-<dice-bag></dice-bag>
+<div left>
+  <die-panel [label]="'ability'" [sides]="ability" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'proficiency'" [sides]="proficiency" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'difficulty'" [sides]="difficulty" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'boost'" [sides]="boost" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'challenge'" [sides]="challenge" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'force'" [sides]="force" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+  <die-panel [label]="'setback'" [sides]="setback" [roll$]="rollClick$" (rolled)="pipsRolled($event)"></die-panel>
+</div>
+<button (click)="doRoll($event)" class="mdl-button mdl-button--fab mdl-button--colored">
+  <svg><use xlink:href="#roll"></use></svg>
+</button>
+<div right>
+    <div>
+      <h5>Results</h5>
+      <ul class="mdl-list">
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Success: {{ (result$ | async).success + (result$ | async).triumph - (result$ | async).failure - (result$ | async).despair }}
+          </span>
+        </li>
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Advantage: {{(result$ | async).advantage - (result$ | async).threat}}
+          </span>
+        </li>
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Triumph: {{(result$ | async).triumph}}
+          </span>
+        </li>
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Despair: {{(result$ | async).despair}}
+          </span>
+        </li>
+      </ul>
+    </div>
+  <div class="face-row">
+    <div class="mdl-card mdl-shadow--4dp" *ngFor="let value of face$ | async">
+      <!-- <div *ngIf="value.dieType === 'difficulty'; then icon else text"></div> -->
+      <!-- <ng-template #icon><eote-icon [svgIcon]="value.dieType + ':' + value.face.join(' ')"></eote-icon></ng-template> -->
+      <!-- <ng-template #text> -->
+        <div class="mdl-card__title">{{value.dieType}}</div>
+        <div class="mdl-card__supporting-text">
+          {{value.face.join(', ')}}
+        </div>
+      <!-- </ng-template> -->
+    </div>
+  </div>
+</div>
